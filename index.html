@@ -152,7 +152,14 @@
                 <a href="#about" class="nav-link">About</a>
                 <a href="#experience" class="nav-link">Journey</a>
                 <a href="#skills" class="nav-link">Skills</a>
-                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#project-gitgraph" class="nav-project-chip nav-project-gitgraph" aria-label="Jump to GitGraph Lab">
+                    <i class="fas fa-code-branch"></i>
+                    <span>GitGraph</span>
+                </a>
+                <a href="#project-repobrain" class="nav-project-chip nav-project-repobrain" aria-label="Jump to RepoBrain OS">
+                    <i class="fas fa-brain"></i>
+                    <span>RepoBrain</span>
+                </a>
                 <a href="#contact" class="nav-cta">Get in Touch!</a>
                 <button id="theme-toggle" class="theme-toggle-nav" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
@@ -164,10 +171,10 @@
     <section class="hero" id="hero">
         <div class="hero-content">
             <div class="hero-left">
-                <p class="hero-greeting" id="hero-greeting">Hi there!</p>
+                <p class="hero-greeting" id="hero-greeting">Hi there, curious human!</p>
                 <h1 class="hero-name">I'm Deependra Rathod.</h1>
                 <p class="hero-description">
-                    Full-Stack and Systems Engineer building reliable products, real-time services, and developer tools with TypeScript, React, Node.js, Rust, and test automation.
+                    I build reliable products, real-time services, and developer tools. I like hard systems, honest benchmarks, and interfaces that feel alive.
                 </p>
                 <div class="hero-social">
                     <a href="https://github.com/Deependra-Codes" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub profile">
@@ -181,8 +188,16 @@
                     </a>
                 </div>
                 <div class="hero-cta-container">
-                    <a href="mailto:deependrarathod898@gmail.com" class="btn-cta">Email Me</a>
-                    <a href="#contact" class="btn-cta">Get in Touch!</a>
+                    <a href="#projects" class="btn-cta">Explore the work</a>
+                    <div class="coffee-cta-wrapper">
+                        <div class="coffee-arrow">
+                            <span class="coffee-arrow-text">Coffee + code?</span>
+                            <img src="image/arrow.png" alt="" class="coffee-arrow-img" width="140" height="140">
+                        </div>
+                        <a href="mailto:deependrarathod898@gmail.com?subject=Coffee%20%2B%20code" class="btn-coffee" aria-label="Email Deependra about coffee and code">
+                            <img src="image/caffe-icon.gif" alt="" class="coffee-icon-img" width="52" height="52">
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="hero-right">
@@ -220,18 +235,33 @@
                 </div>
             </div>
         </div>
-        <div class="tech-badges">
-            <span class="tech-badge"><i class="fab fa-js"></i> TypeScript</span>
-            <span class="tech-badge"><i class="fas fa-code"></i> Rust</span>
-            <span class="tech-badge"><i class="fab fa-react"></i> React / Next.js</span>
-            <span class="tech-badge"><i class="fab fa-node-js"></i> Node.js / Fastify</span>
-            <span class="tech-badge"><i class="fas fa-sitemap"></i> Distributed Systems</span>
-            <span class="tech-badge"><i class="fas fa-robot"></i> AI / MCP</span>
-            <span class="tech-badge"><i class="fas fa-vial"></i> QA Automation</span>
-            <span class="tech-badge"><i class="fab fa-aws"></i> AWS</span>
+        <div class="tech-marquee" aria-label="Core technologies">
+            <div class="tech-track">
+                <div class="tech-badges">
+                    <span class="tech-badge"><i class="fab fa-js"></i> TypeScript</span>
+                    <span class="tech-badge"><i class="fas fa-code"></i> Rust</span>
+                    <span class="tech-badge"><i class="fab fa-react"></i> React / Next.js</span>
+                    <span class="tech-badge"><i class="fab fa-node-js"></i> Node.js / Fastify</span>
+                    <span class="tech-badge"><i class="fas fa-sitemap"></i> Distributed Systems</span>
+                    <span class="tech-badge"><i class="fas fa-robot"></i> AI / MCP</span>
+                    <span class="tech-badge"><i class="fas fa-vial"></i> QA Automation</span>
+                    <span class="tech-badge"><i class="fab fa-aws"></i> AWS</span>
+                </div>
+                <div class="tech-badges" aria-hidden="true">
+                    <span class="tech-badge"><i class="fab fa-js"></i> TypeScript</span>
+                    <span class="tech-badge"><i class="fas fa-code"></i> Rust</span>
+                    <span class="tech-badge"><i class="fab fa-react"></i> React / Next.js</span>
+                    <span class="tech-badge"><i class="fab fa-node-js"></i> Node.js / Fastify</span>
+                    <span class="tech-badge"><i class="fas fa-sitemap"></i> Distributed Systems</span>
+                    <span class="tech-badge"><i class="fas fa-robot"></i> AI / MCP</span>
+                    <span class="tech-badge"><i class="fas fa-vial"></i> QA Automation</span>
+                    <span class="tech-badge"><i class="fab fa-aws"></i> AWS</span>
+                </div>
+            </div>
         </div>
     </section>
 
+    <div class="paper-rip" aria-hidden="true">
     <div class="paper-tear paper-tear-top">
         <svg width="100%" height="30" viewBox="0 0 1440 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,0 L0,15 Q10,5 20,15 T40,15 Q50,5 60,15 T80,15 Q90,20 100,15 T120,15 Q130,10 140,15 T160,15 Q170,5 180,15 T200,15 Q210,20 220,15 T240,15 Q250,8 260,15 T280,15 Q290,18 300,15 T320,15 Q330,5 340,15 T360,15 Q370,12 380,15 T400,15 Q410,20 420,15 T440,15 Q450,6 460,15 T480,15 Q490,16 500,15 T520,15 Q530,8 540,15 T560,15 Q570,20 580,15 T600,15 Q610,10 620,15 T640,15 Q650,5 660,15 T680,15 Q690,18 700,15 T720,15 Q730,12 740,15 T760,15 Q770,7 780,15 T800,15 Q810,20 820,15 T840,15 Q850,9 860,15 T880,15 Q890,14 900,15 T920,15 Q930,6 940,15 T960,15 Q970,19 980,15 T1000,15 Q1010,11 1020,15 T1040,15 Q1050,5 1060,15 T1080,15 Q1090,17 1100,15 T1120,15 Q1130,8 1140,15 T1160,15 Q1170,13 1180,15 T1200,15 Q1210,20 1220,15 T1240,15 Q1250,7 1260,15 T1280,15 Q1290,16 1300,15 T1320,15 Q1330,10 1340,15 T1360,15 Q1370,5 1380,15 T1400,15 Q1410,18 1420,15 T1440,15 L1440,0 Z"
@@ -241,6 +271,11 @@
             <path d="M0,15 Q10,5 20,15 T40,15 Q50,5 60,15 T80,15 Q90,20 100,15 T120,15 Q130,10 140,15 T160,15 Q170,5 180,15 T200,15 Q210,20 220,15 T240,15 Q250,8 260,15 T280,15 Q290,18 300,15 T320,15 Q330,5 340,15 T360,15 Q370,12 380,15 T400,15 Q410,20 420,15 T440,15 Q450,6 460,15 T480,15 Q490,16 500,15 T520,15 Q530,8 540,15 T560,15 Q570,20 580,15 T600,15 Q610,10 620,15 T640,15 Q650,5 660,15 T680,15 Q690,18 700,15 T720,15 Q730,12 740,15 T760,15 Q770,7 780,15 T800,15 Q810,20 820,15 T840,15 Q850,9 860,15 T880,15 Q890,14 900,15 T920,15 Q930,6 940,15 T960,15 Q970,19 980,15 T1000,15 Q1010,11 1020,15 T1040,15 Q1050,5 1060,15 T1080,15 Q1090,17 1100,15 T1120,15 Q1130,8 1140,15 T1160,15 Q1170,13 1180,15 T1200,15 Q1210,20 1220,15 T1240,15 Q1250,7 1260,15 T1280,15 Q1290,16 1300,15 T1320,15 Q1330,10 1340,15 T1360,15 Q1370,5 1380,15 T1400,15 Q1410,18 1420,15 T1440,15"
             fill="none" stroke="var(--border)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+    </div>
+
+    <div class="rip-message">
+        <span>pulling apart the obvious layer</span>
+        <i class="fas fa-arrow-down"></i>
     </div>
 
     <div class="paper-tear paper-tear-bottom">
@@ -255,6 +290,7 @@
     </div>
 
     <div class="tear-tape-sticker"></div>
+    </div>
 
     <div class="container">
 
@@ -553,36 +589,49 @@
 
         <section class="section section-compact" id="projects">
             <div class="creator-showcase">
-                <p class="creator-label">Selected current work</p>
+                <p class="creator-label">Current experiments, built in public (mostly).</p>
+                <p class="creator-intro">Four different obsessions. Same habit: measure twice, ship honestly.</p>
                 <div class="creator-projects-grid">
-                    <div class="creator-item">
+                    <div class="creator-item project-gitgraph" id="project-gitgraph">
                         <div class="creator-project">
-                            <span class="project-initial">GG</span>
-                            <span class="creator-name">GitGraph Lab</span>
+                            <span class="project-mark" aria-hidden="true"><i class="fas fa-code-branch"></i></span>
+                            <span class="project-title-stack">
+                                <span class="creator-name">GitGraph Lab</span>
+                                <span class="project-whisper">Rust at graph speed.</span>
+                            </span>
                         </div>
                         <p class="creator-tagline">High-performance Rust engine for Git history indexing and graph queries using LMDB, CSR snapshots, incremental ingestion, and hardware-aware performance gates.</p>
                         <a href="https://github.com/Deependra-Codes/FinalGitGraph" target="_blank" rel="noopener noreferrer" class="creator-github"><i class="fab fa-github"></i> View repository</a>
                     </div>
-                    <div class="creator-item">
+                    <div class="creator-item project-repobrain" id="project-repobrain">
                         <div class="creator-project">
-                            <span class="project-initial">RB</span>
-                            <span class="creator-name">RepoBrain OS</span>
+                            <span class="project-mark" aria-hidden="true"><i class="fas fa-brain"></i></span>
+                            <span class="project-title-stack">
+                                <span class="creator-name">RepoBrain OS</span>
+                                <span class="project-whisper">Receipts before vibes.</span>
+                            </span>
                         </div>
                         <p class="creator-tagline">Deterministic repository-cognition system for coding agents with evidence receipts, snapshot-backed retrieval, semantic verification, and cross-language contracts.</p>
                         <a href="https://github.com/Deependra-Codes/RepoBrainOs" target="_blank" rel="noopener noreferrer" class="creator-github"><i class="fab fa-github"></i> View repository</a>
                     </div>
-                    <div class="creator-item">
+                    <div class="creator-item project-research">
                         <div class="creator-project">
-                            <span class="project-initial">AUT</span>
-                            <span class="creator-name">Graph Research</span>
+                            <span class="project-mark project-mark-symbol" aria-hidden="true">u≤τ</span>
+                            <span class="project-title-stack">
+                                <span class="creator-name">Graph Research</span>
+                                <span class="project-whisper">Proofs still warm.</span>
+                            </span>
                         </div>
                         <p class="creator-tagline">Two manuscripts in progress connecting delivery batching with graph-class theory, including anchored unit-threshold graphs and linear-time shell optimization.</p>
                         <a href="#contact" class="creator-github"><i class="fas fa-flask"></i> Research in progress</a>
                     </div>
-                    <div class="creator-item">
+                    <div class="creator-item project-docs">
                         <div class="creator-project">
-                            <span class="project-initial">DOC</span>
-                            <span class="creator-name">Collaborative Docs</span>
+                            <span class="project-mark" aria-hidden="true"><i class="fas fa-pen-ruler"></i></span>
+                            <span class="project-title-stack">
+                                <span class="creator-name">Collaborative Docs</span>
+                                <span class="project-whisper">Ideas, with multiplayer on.</span>
+                            </span>
                         </div>
                         <p class="creator-tagline">Real-time document workspace built with Next.js, Convex, Liveblocks, TipTap/Yjs, RBAC, version snapshots, comments, and AI-assisted editing.</p>
                         <a href="#contact" class="creator-github"><i class="fas fa-arrow-right"></i> Discuss project</a>
@@ -778,6 +827,50 @@
                 terminalFallen = true;
             }
         }, { passive: true });
+
+        // Dramatic paper rip without changing document height
+        const paperRip = document.querySelector('.paper-rip');
+        const ripMessage = document.querySelector('.rip-message');
+        const ripTape = document.querySelector('.tear-tape-sticker');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let ripFramePending = false;
+
+        function updatePaperRip() {
+            ripFramePending = false;
+            if (!paperRip) return;
+
+            const isMobile = window.innerWidth <= 768;
+            const progress = isMobile || reduceMotion.matches
+                ? 1
+                : Math.min(1, Math.max(0, window.scrollY / 280));
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const tearOffset = eased * 24;
+
+            paperRip.style.setProperty('--tear-offset', `${tearOffset}px`);
+            paperRip.style.setProperty('--rip-reveal', eased.toFixed(3));
+
+            if (ripMessage) {
+                ripMessage.style.transform = `translateY(${8 - eased * 8}px) rotate(${-1 + eased}deg)`;
+            }
+
+            if (ripTape) {
+                const lift = -36 + eased * 36;
+                const rotate = -14 + eased * 7;
+                const scale = 0.9 + eased * 0.1;
+                ripTape.style.transform = `translateY(calc(-50% + ${lift}px)) rotate(${rotate}deg) scale(${scale})`;
+            }
+        }
+
+        function queuePaperRipUpdate() {
+            if (ripFramePending) return;
+            ripFramePending = true;
+            requestAnimationFrame(updatePaperRip);
+        }
+
+        window.addEventListener('scroll', queuePaperRipUpdate, { passive: true });
+        window.addEventListener('resize', queuePaperRipUpdate);
+        reduceMotion.addEventListener('change', queuePaperRipUpdate);
+        requestAnimationFrame(updatePaperRip);
 
         // Highlight Parallax Effect
         const highlights = document.querySelectorAll('.highlight');
@@ -979,7 +1072,7 @@
         }
 
         // Smooth Scroll for Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
+        document.querySelectorAll('.nav-link, .nav-project-chip').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetId = link.getAttribute('href');
@@ -1046,10 +1139,15 @@
 
         // Matrix Typing Effect for Hero Greeting
         const greetingElement = document.getElementById('hero-greeting');
-        const finalText = 'Hi there!';
+        const finalText = 'Hi there, curious human!';
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
 
         function matrixTypingEffect() {
+            if (window.innerWidth <= 768 || reduceMotion.matches) {
+                greetingElement.textContent = finalText;
+                return;
+            }
+
             let iterations = 0;
             const interval = setInterval(() => {
                 greetingElement.textContent = finalText
