@@ -3719,12 +3719,12 @@ body[data-theme="dark"] .language-item:hover {
   content: '03 / proofs';
 }
 
-.project-docs {
+.project-communication {
   --project-accent: var(--accent);
 }
 
-.project-docs::after {
-  content: '04 / collaboration';
+.project-communication::after {
+  content: '04 / real-time systems';
 }
 
 .creator-item:last-child:nth-child(odd) {
