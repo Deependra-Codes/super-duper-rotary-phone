@@ -527,8 +527,8 @@ class TerminalResume {
       this.wrapWithColor(asciiArt + "\n", "#d4843e") +
       this.wrapWithColor(divider + "\n", "#555555") +
       this.wrapWithColor("              Interactive Terminal Resume\n", "#888888") +
-      this.wrapWithColor(" Full-Stack Engineer | QA Automation | Product Manager\n", "#666666") +
-      this.wrapWithColor("        React | Node.js | Testing | Product Strategy\n", "#666666") +
+      this.wrapWithColor("       Full-Stack & Systems Engineer\n", "#666666") +
+      this.wrapWithColor(" TypeScript | Rust | Distributed Systems | Quality\n", "#666666") +
       this.wrapWithColor(divider + "\n\n", "#555555") +
       this.wrapWithColor("Type ", "#666666") +
       this.wrapWithColor("'help'", "#87af87") +
@@ -581,15 +581,15 @@ class TerminalResume {
     const about = `<span style="color: #ff8c00; font-weight: bold;">About Me</span>
 
 ${this.wrapWithColor("Deependra Rathod", "#00ffff")}
-${this.wrapWithColor("Full-Stack Engineer with strong QA Automation and Product Manager positioning.", "#ffffff")}
+${this.wrapWithColor("Full-Stack and Systems Engineer building reliable products, real-time services, and developer tools.", "#ffffff")}
 
 ${this.wrapWithColor("Focus", "#ff8c00")}
-- ${this.wrapWithColor("Full-stack delivery with React, Next.js, Node.js, AWS, microservices, Kafka, and Redis", "#ffffff")}
-- ${this.wrapWithColor("QA Automation through TDD, Jest, MSW, API testing, CI/CD, and regression-minded engineering", "#ffffff")}
-- ${this.wrapWithColor("Product Manager thinking through MVP scope, roadmaps, analytics, A/B tests, and stakeholder alignment", "#ffffff")}
+- ${this.wrapWithColor("Product engineering with TypeScript, React, Next.js, Node.js, Fastify, AWS, Kafka, and Redis", "#ffffff")}
+- ${this.wrapWithColor("Systems work in Rust, graph indexing, repository intelligence, MCP, and performance engineering", "#ffffff")}
+- ${this.wrapWithColor("Quality engineering through Vitest, Jest, Playwright, MSW, API testing, CI/CD, and performance gates", "#ffffff")}
 
 ${this.wrapWithColor("Core stack", "#ff8c00")}
-${this.wrapWithColor("React, Next.js, Node.js, AWS, Docker, Kafka, Redis, PostgreSQL, MongoDB, Jest, MSW", "#87cefa")}`;
+${this.wrapWithColor("TypeScript, Rust, React, Next.js, Node.js, Fastify, AWS, Docker, Kafka, Redis, PostgreSQL, MCP", "#87cefa")}`;
 
     const aboutDiv = document.createElement("div");
     aboutDiv.innerHTML = about;
@@ -671,12 +671,11 @@ ${this.wrapWithColor("React, Next.js, Node.js, AWS, Docker, Kafka, Redis, Postgr
   showExperience(outputElement = this.output) {
     const experience = `<span style="color: #ffff00; font-weight: bold;">Professional Experience</span>
 
-<span style="color: #00ffff;">STEALTH STARTUP | Full-Stack AI Developer</span>
+<span style="color: #00ffff;">STEALTH STARTUP | Full-Stack AI Developer Intern</span>
 ${this.wrapWithColor("Nov 2025 - Present | Hyderabad, India (Hybrid)", "#ffffff")}
-- ${this.wrapWithColor("Led a Backend-for-Frontend layer aggregating microservices, cutting API over-fetching by 40%.", "#ffffff")}
-- ${this.wrapWithColor("Implemented OIDC-based SSO authentication for stronger enterprise access control.", "#ffffff")}
-- ${this.wrapWithColor("Containerized distributed systems with Docker and CI/CD quality gates, reducing release cycle time by 50%.", "#ffffff")}
-- ${this.wrapWithColor("Partnered with product leadership on MVP scope, customer value, and release readiness.", "#ffffff")}
+- ${this.wrapWithColor("Contribute across private TypeScript monorepos spanning React/Next.js interfaces and Node.js services.", "#ffffff")}
+- ${this.wrapWithColor("Build secure authentication, real-time workflows, asynchronous jobs, observability, and automated tests.", "#ffffff")}
+- ${this.wrapWithColor("Work within product confidentiality while supporting release quality and maintainable delivery.", "#ffffff")}
 
 <span style="color: #00ffff;">CODINGPANDA | Software Developer Intern</span>
 ${this.wrapWithColor("Sept 2025 - Nov 2025 | Bangalore, India (Remote)", "#ffffff")}
@@ -712,22 +711,22 @@ ${this.wrapWithColor("Achievements & Leadership", "#ff8c00")}
     const skills = `<span style="color: #ffff00; font-weight: bold;">Technical Skills</span>
 
 ${this.wrapWithColor("Languages", "#ff8c00")}
-- TypeScript, JavaScript, Python, C++, SQL, HTML/CSS
+- TypeScript, JavaScript, Rust, Python, C++, SQL, HTML/CSS
 
-${this.wrapWithColor("Frameworks", "#ff8c00")}
-- React.js, Next.js, Node.js, Express, Redux, Tailwind, WebSockets
+${this.wrapWithColor("Product Engineering", "#ff8c00")}
+- React.js, Next.js, Node.js, Express, Fastify, Redux/Zustand, Tailwind, TipTap/Yjs
 
 ${this.wrapWithColor("Cloud & DevOps", "#ff8c00")}
-- AWS EC2, S3, CloudFront, Docker, Kafka, Redis, CI/CD Pipelines, Nx Monorepo
+- AWS, S3/SQS, Docker, CI/CD, Turborepo, OpenTelemetry, observability
 
-${this.wrapWithColor("QA Automation", "#ff8c00")}
-- Jest, MSW, TDD, API testing, CI/CD, regression thinking, quality gates
+${this.wrapWithColor("Testing & Quality", "#ff8c00")}
+- Vitest, Jest, Playwright, Supertest, MSW, TDD, API testing, performance gates
 
-${this.wrapWithColor("Product Management", "#ff8c00")}
-- Product Manager positioning, MVP scope, roadmapping, analytics, A/B testing, Agile/Scrum, stakeholder management
+${this.wrapWithColor("Systems & AI", "#ff8c00")}
+- Distributed systems, WebSockets, Kafka, BullMQ/SQS, transactional outbox, MCP, Tree-sitter, graph indexing
 
-${this.wrapWithColor("Systems & Data", "#ff8c00")}
-- System Design, REST APIs, PostgreSQL, MongoDB, Stripe Connect, Kafka, Redis`;
+${this.wrapWithColor("Data & Research", "#ff8c00")}
+- PostgreSQL, Redis, MongoDB, LMDB, SQLite, Prisma, Convex, benchmarking, graph theory, LaTeX`;
 
     const skillsDiv = document.createElement("div");
     skillsDiv.innerHTML = skills;
@@ -814,13 +813,6 @@ ${this.wrapWithColor("Location:", "#ff8c00")} ${this.wrapWithColor("Ranchi, Indi
         technologies: ["Next.js", "Convex", "Liveblocks", "TipTap", "Yjs", "RBAC"],
         impact: "Supports live cursors, comments, organization workspaces, version snapshots, permissions, and streamed AI writing actions.",
       },
-      {
-        title: "Real-Time Communication Platform",
-        description: "Event-driven communication monorepo with resilient gateway and worker services.",
-        initial: "RTC",
-        technologies: ["TypeScript", "Fastify", "WebSockets", "PostgreSQL", "Redis", "Kafka"],
-        impact: "Implements transactional outbox delivery, OIDC authentication, rate limits, distributed tracing, moderation, and asynchronous workers.",
-      },
     ];
   }
 
@@ -829,37 +821,38 @@ ${this.wrapWithColor("Location:", "#ff8c00")} ${this.wrapWithColor("Ranchi, Indi
       programming: {
         TypeScript: 92,
         JavaScript: 90,
+        Rust: 84,
         Python: 85,
-        "C++": 82,
       },
       frameworks: {
         "React.js": 92,
-        "Next.js": 88,
+        "Next.js": 90,
         "Node.js": 90,
-        Express: 88,
+        Fastify: 84,
       },
       databases: {
         PostgreSQL: 88,
-        MongoDB: 88,
         Redis: 86,
+        MongoDB: 84,
+        LMDB: 80,
       },
       systems: {
-        AWS: 86,
+        "Distributed Systems": 86,
+        MCP: 84,
+        Kafka: 84,
         Docker: 84,
-        Kafka: 82,
-        Microservices: 88,
       },
       qaAutomation: {
+        Vitest: 86,
         Jest: 84,
-        MSW: 82,
-        TDD: 82,
-        "API Testing": 84,
+        Playwright: 82,
+        "API Testing": 86,
       },
-      productManagement: {
+      productResearch: {
         "MVP Scope": 84,
-        Roadmapping: 82,
-        Analytics: 80,
-        "Stakeholder Alignment": 84,
+        Benchmarking: 86,
+        ADRs: 84,
+        "Technical Writing": 86,
       },
     };
   }
@@ -1504,7 +1497,7 @@ ${this.wrapWithColor("Location:", "#ff8c00")} ${this.wrapWithColor("Ranchi, Indi
 
     // Add role
     const role = document.createElement("div");
-    role.textContent = "Full-Stack Engineer | QA Automation | Product Manager";
+    role.textContent = "Full-Stack & Systems Engineer | Quality-Focused Product Engineering";
     role.style.color = "#666666";
     role.style.fontSize = "10px";
     role.style.fontFamily = "'Fira Code', monospace";

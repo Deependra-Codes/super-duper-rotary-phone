@@ -1,16 +1,16 @@
 # Deependra Rathod Portfolio
 
-A neo-brutalist personal portfolio built with vanilla HTML, CSS, and JavaScript. The content is adapted from Deependra Rathod's resume and positions him as a Full-Stack Engineer first, with supporting strength in QA Automation and Product Manager thinking.
+A neo-brutalist personal portfolio built with vanilla HTML, CSS, and JavaScript. The content positions Deependra Rathod as a Full-Stack and Systems Engineer with strong quality-engineering discipline.
 
 ## Highlights
 
 - Main portfolio at `index.html`
 - Interactive terminal resume at `terminal.html`
 - CV-based sections for summary, experience, skills, projects, education, achievements, and contact
-- Role positioning: Full-Stack Engineer | QA Automation | Product Manager
-- QA Automation proof points include Jest, MSW, TDD, API testing, CI/CD, regression thinking, and public testing-focused repositories
-- Product Management copy stays positioning-focused through MVP scope, roadmapping, analytics, A/B testing, Agile/Scrum, and stakeholder alignment
-- Current work includes GitGraph Lab, RepoBrain OS, graph-theory manuscripts in progress, a collaborative document workspace, and a private real-time communication architecture project
+- Role positioning: Full-Stack & Systems Engineer | Quality-Focused Product Engineering
+- Evidence-backed skills span TypeScript, React/Next.js, Node.js/Fastify, Rust, distributed systems, repository intelligence, QA automation, and research
+- Stealth internship work is described only through generalized capabilities and is not presented as personal or public project work
+- Current personal work includes GitGraph Lab, RepoBrain OS, graph-theory manuscripts in progress, and a collaborative document workspace
 - GitHub: `https://github.com/Deependra-Codes`
 - LinkedIn: `https://in.linkedin.com/in/deependra-rathod-23a6ba381`
 - No frameworks, no build step, no dependencies
