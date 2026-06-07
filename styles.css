@@ -176,15 +176,18 @@ body {
   gap: 15px;
 }
 
-.theme-selector,
-.language-selector {
+.theme-selector {
   cursor: pointer;
   color: var(--text-dim);
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
   transition: color 0.2s ease;
 }
 
 .theme-selector:hover,
-.language-selector:hover {
+.theme-selector:focus-visible {
   color: var(--text-bright);
 }
 
@@ -515,10 +518,16 @@ body {
   font-size: 28px;
   cursor: pointer;
   color: var(--text-dim);
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  line-height: 1;
   transition: color 0.2s ease;
 }
 
-.close-button:hover {
+.close-button:hover,
+.close-button:focus-visible {
   color: var(--text-bright);
 }
 
@@ -543,10 +552,16 @@ body {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
   transition: transform 0.2s ease;
 }
 
-.theme-option:hover {
+.theme-option:hover,
+.theme-option:focus-visible {
   transform: translateY(-5px);
 }
 
@@ -627,31 +642,6 @@ body {
   opacity: 0.3;
 }
 
-/* Language selector styles */
-.language-options {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.language-option {
-  padding: 12px 20px;
-  background-color: var(--terminal-highlight);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.language-option:hover {
-  background-color: var(--border-color);
-  transform: translateX(5px);
-}
-
-.language-option.active {
-  background-color: var(--text-dim);
-  color: var(--terminal-bg);
-}
-
 /* Projects showcase styles */
 .projects-container {
   display: grid;
@@ -677,6 +667,17 @@ body {
   height: 150px;
   object-fit: cover;
   border-bottom: 1px solid var(--border-color);
+}
+
+.project-initial-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #00ff00, #00ffff);
+  color: #0f0f0f;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 .project-details {
@@ -811,41 +812,6 @@ body {
   }
 }
 
-/* File explorer styles */
-.file-explorer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.file-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.file-item:hover {
-  background-color: var(--terminal-highlight);
-}
-
-.file-item i {
-  color: var(--text-bright);
-}
-
-.file-name {
-  color: var(--text-color);
-}
-
-.directory {
-  color: var(--text-bright);
-  font-weight: 500;
-}
-
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .terminal {
@@ -940,28 +906,6 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* PDF resume styles */
-.download-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background-color: var(--text-bright);
-  color: var(--terminal-bg);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Fira Code", monospace;
-  font-weight: 500;
-  margin-top: 15px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.download-button:hover {
-  background-color: var(--text-highlight);
-  transform: translateY(-2px);
-}
-
 /* Matrix effect styles */
 .matrix-container {
   width: 100%;
@@ -991,43 +935,6 @@ body {
   text-align: center;
 }
 
-/* Weather display styles */
-.weather-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 15px 0;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 15px;
-  background-color: rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-}
-
-.weather-header {
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.weather-body {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.weather-main {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.weather-details {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  color: var(--text-color);
-}
-
 /* Calculator styles */
 .calculation {
   margin: 10px 0;
@@ -1046,4 +953,15 @@ body {
   font-size: 1.2rem;
   font-weight: bold;
   font-family: "Fira Code", monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

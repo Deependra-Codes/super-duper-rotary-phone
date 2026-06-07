@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Marjo Ballabani | Terminal Resume</title>
+        <title>Deependra Rathod | Full-Stack Engineer Terminal Resume</title>
         <link rel="stylesheet" href="styles.css">
         <!-- FontAwesome for icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,28 +22,25 @@
                     <span class="minimize"></span>
                     <span class="maximize"></span>
                 </div>
-                <div class="terminal-title">marjo@ballabani: ~/resume</div>
+                <div class="terminal-title">deependra@rathod: ~/resume</div>
                 <div class="terminal-controls">
-                    <div class="theme-selector">
-                        <i class="fa-solid fa-palette" id="theme-toggle"></i>
-                    </div>
-                    <div class="language-selector">
-                        <i class="fa-solid fa-globe" id="language-toggle"></i>
-                    </div>
+                    <button type="button" class="theme-selector" id="theme-toggle" aria-label="Choose terminal theme">
+                        <i class="fa-solid fa-palette" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
             <div class="terminal-container">
                 <div class="terminal-content">
                     <div id="output"></div>
                     <div class="input-line">
-                        <span class="prompt">➜</span>
-                        <input type="text" id="command-input" autofocus />
+                        <span class="prompt">&gt;</span>
+                        <input type="text" id="command-input" aria-label="Terminal command" autofocus />
                     </div>
                 </div>
             </div>
             <div class="terminal-footer">
-                <a href="about.html" class="resume-link"><i class="fas fa-file-alt"></i> View Resume</a>
-                <a href="neo-resume.html" class="resume-link"><i class="fas fa-shapes"></i> Neo-Brutalism Resume</a>
+                <a href="index.html" class="resume-link"><i class="fas fa-file-alt"></i> View Portfolio</a>
+                <a href="mailto:deependrarathod898@gmail.com" class="resume-link"><i class="fas fa-envelope"></i> Email Me</a>
             </div>
             <div class="context-menu">
                 <div class="menu-item" data-action="split-h">Split Horizontally</div>
@@ -53,50 +50,36 @@
         </div>
 
         <!-- Theme Selection Modal -->
-        <div id="theme-modal" class="modal">
+        <div id="theme-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="theme-modal-title">
             <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2>Select Theme</h2>
+                <button type="button" class="close-button" aria-label="Close theme selector">&times;</button>
+                <h2 id="theme-modal-title">Select Theme</h2>
                 <div class="theme-options">
-                    <div class="theme-option" data-theme="default">
+                    <button type="button" class="theme-option" data-theme="default">
                         <div class="theme-preview default-theme"></div>
                         <span>Default</span>
-                    </div>
-                    <div class="theme-option" data-theme="dracula">
+                    </button>
+                    <button type="button" class="theme-option" data-theme="dracula">
                         <div class="theme-preview dracula-theme"></div>
                         <span>Dracula</span>
-                    </div>
-                    <div class="theme-option" data-theme="solarized">
+                    </button>
+                    <button type="button" class="theme-option" data-theme="solarized">
                         <div class="theme-preview solarized-theme"></div>
                         <span>Solarized</span>
-                    </div>
-                    <div class="theme-option" data-theme="nord">
+                    </button>
+                    <button type="button" class="theme-option" data-theme="nord">
                         <div class="theme-preview nord-theme"></div>
                         <span>Nord</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Language Selection Modal -->
-        <div id="language-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2>Select Language</h2>
-                <div class="language-options">
-                    <div class="language-option" data-lang="en">English</div>
-                    <div class="language-option" data-lang="de">Deutsch</div>
-                    <div class="language-option" data-lang="fr">Français</div>
-                    <div class="language-option" data-lang="sq">Albanian</div>
+                    </button>
                 </div>
             </div>
         </div>
 
         <!-- Projects Showcase Modal -->
-        <div id="projects-modal" class="modal">
+        <div id="projects-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="projects-modal-title">
             <div class="modal-content projects-modal-content">
-                <span class="close-button">&times;</span>
-                <h2>Projects</h2>
+                <button type="button" class="close-button" aria-label="Close projects">&times;</button>
+                <h2 id="projects-modal-title">Projects</h2>
                 <div class="projects-container">
                     <!-- Project cards will be added here dynamically -->
                 </div>
@@ -104,10 +87,10 @@
         </div>
 
         <!-- Skills Visualization Modal -->
-        <div id="skills-modal" class="modal">
+        <div id="skills-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="skills-modal-title">
             <div class="modal-content skills-modal-content">
-                <span class="close-button">&times;</span>
-                <h2>Skills Visualization</h2>
+                <button type="button" class="close-button" aria-label="Close skills visualization">&times;</button>
+                <h2 id="skills-modal-title">Skills Visualization</h2>
                 <div class="skills-container">
                     <!-- Skills visualization will be added here dynamically -->
                 </div>

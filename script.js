@@ -11,12 +11,16 @@ class TerminalResume {
     this.resizing = null;
 
     // New properties for themes and game
-    this.currentTheme = localStorage.getItem("theme") || "default";
+    this.themeStorageKey = "terminal-theme";
+    this.availableThemes = ["default", "dracula", "solarized", "nord"];
+    const savedTheme =
+      localStorage.getItem(this.themeStorageKey) || localStorage.getItem("theme");
+    this.currentTheme = this.availableThemes.includes(savedTheme)
+      ? savedTheme
+      : "default";
     this.projects = [];
     this.skills = {};
-    this.fileSystem = {};
     this.gameActive = false;
-    this.gameHandler = null;
 
     // Initialize modals
     this.themeModal = document.getElementById("theme-modal");
@@ -29,7 +33,6 @@ class TerminalResume {
     this.setupEventListeners();
     this.loadProjects();
     this.loadSkills();
-    this.setupFileSystem();
     this.init();
   }
 
@@ -49,17 +52,19 @@ class TerminalResume {
       this.showModal(this.themeModal);
     });
 
-    // Hide language toggle since we're removing that feature
-    const languageToggle = document.getElementById("language-toggle");
-    if (languageToggle && languageToggle.parentElement) {
-      languageToggle.parentElement.style.display = "none";
-    }
-
     // Theme selection
     document.querySelectorAll(".theme-option").forEach((option) => {
       option.addEventListener("click", () => {
         this.handleThemeChange(option.dataset.theme);
       });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        document.querySelectorAll(".modal.active").forEach((modal) => {
+          this.closeModal(modal);
+        });
+      }
     });
 
     this.printWelcomeMessage();
@@ -213,10 +218,9 @@ class TerminalResume {
       "exit-game",
       "matrix",
       "stop-matrix",
-      "weather",
       "calc",
       "calculate",
-      "pdf",
+      "linkedin-cover",
     ];
 
     // Find matching commands
@@ -286,7 +290,7 @@ class TerminalResume {
     newContent.innerHTML = `
       <div id="output-${timestamp}" class="terminal-output"></div>
       <div class="input-line">
-        <span class="prompt">➜</span>
+        <span class="prompt">&gt;</span>
         <input type="text" id="command-input-${timestamp}" class="command-input" />
       </div>
     `;
@@ -443,7 +447,7 @@ class TerminalResume {
       .closest(".terminal-content")
       .querySelector("[id^='output']");
 
-    this.printToOutput(outputElement, `➜ ${command}`, "command");
+    this.printToOutput(outputElement, `> ${command}`, "command");
     terminal.history.push(command);
     terminal.historyIndex = -1;
     inputElement.value = "";
@@ -484,9 +488,6 @@ class TerminalResume {
       case "game":
         this.initGame();
         break;
-      case "pdf":
-        this.generatePDF();
-        break;
       case "linkedin-cover":
         this.generateLinkedInCover(outputElement);
         break;
@@ -500,9 +501,6 @@ class TerminalResume {
       case "stop-matrix":
         this.stopMatrixEffect();
         this.printToOutput(outputElement, "Matrix effect stopped.", "info");
-        break;
-      case "weather":
-        this.showWeather(args.join(" "), outputElement);
         break;
       case "calc":
       case "calculate":
@@ -522,26 +520,15 @@ class TerminalResume {
   }
 
   printWelcomeMessage(outputElement = this.output) {
-    const asciiArt = `███╗   ███╗ █████╗ ██████╗ ██╗ ██████╗
-████╗ ████║██╔══██╗██╔══██╗██║██╔═══██╗
-██╔████╔██║███████║██████╔╝██║██║   ██║
-██║╚██╔╝██║██╔══██║██╔══██╗██║██║   ██║
-██║ ╚═╝ ██║██║  ██║██║  ██║██║╚██████╔╝
-╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝ `;
-
-    const divider = "─────────────────────────────────────────────────";
+    const asciiArt = `DEEPENDRA RATHOD`;
+    const divider = "============================================================";
 
     const welcome =
       this.wrapWithColor(asciiArt + "\n", "#d4843e") +
       this.wrapWithColor(divider + "\n", "#555555") +
-      this.wrapWithColor(
-        "              Interactive Terminal Resume\n",
-        "#888888"
-      ) +
-      this.wrapWithColor(
-        "         Software Engineer • Cloud Architect • Tech Lead\n",
-        "#666666"
-      ) +
+      this.wrapWithColor("              Interactive Terminal Resume\n", "#888888") +
+      this.wrapWithColor(" Full-Stack Engineer | QA Automation | Product Manager\n", "#666666") +
+      this.wrapWithColor("        React | Node.js | Testing | Product Strategy\n", "#666666") +
       this.wrapWithColor(divider + "\n\n", "#555555") +
       this.wrapWithColor("Type ", "#666666") +
       this.wrapWithColor("'help'", "#87af87") +
@@ -557,148 +544,52 @@ class TerminalResume {
   }
 
   showHelp(outputElement = this.output) {
-    const title = this.wrapWithColor("🚀 Available Commands\n\n", "#ffff00");
+    const title = this.wrapWithColor("Available Commands\n\n", "#ffff00");
 
     const mainCommands =
       this.wrapWithColor("Main Commands:\n", "#00ffff") +
-      this.wrapWithColor("• help", "#98fb98") +
-      "       " +
-      this.wrapWithColor("Show this help message\n", "#ffffff") +
-      this.wrapWithColor("• about", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Display my professional summary\n", "#ffffff") +
-      this.wrapWithColor("• skills", "#98fb98") +
-      "     " +
-      this.wrapWithColor("View my technical expertise\n", "#ffffff") +
-      this.wrapWithColor("• experience", "#98fb98") +
-      " " +
-      this.wrapWithColor("Show my work history\n", "#ffffff") +
-      this.wrapWithColor("• education", "#98fb98") +
-      "  " +
-      this.wrapWithColor("View my educational background\n", "#ffffff") +
-      this.wrapWithColor("• contact", "#98fb98") +
-      "    " +
-      this.wrapWithColor("Get my contact information\n", "#ffffff") +
-      this.wrapWithColor("• clear", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Clear the terminal screen\n", "#ffffff");
+      this.wrapWithColor("- help", "#98fb98") + "        " + this.wrapWithColor("Show this help menu\n", "#ffffff") +
+      this.wrapWithColor("- about", "#98fb98") + "       " + this.wrapWithColor("Display professional summary\n", "#ffffff") +
+      this.wrapWithColor("- skills", "#98fb98") + "      " + this.wrapWithColor("View technical expertise\n", "#ffffff") +
+      this.wrapWithColor("- experience", "#98fb98") + "  " + this.wrapWithColor("Show work history\n", "#ffffff") +
+      this.wrapWithColor("- education", "#98fb98") + "   " + this.wrapWithColor("View education and achievements\n", "#ffffff") +
+      this.wrapWithColor("- contact", "#98fb98") + "     " + this.wrapWithColor("Get contact information\n", "#ffffff") +
+      this.wrapWithColor("- clear", "#98fb98") + "       " + this.wrapWithColor("Clear the terminal\n\n", "#ffffff");
 
     const utilityCommands =
-      "\n" +
       this.wrapWithColor("Utility Commands:\n", "#00ffff") +
-      this.wrapWithColor("• projects", "#98fb98") +
-      "   " +
-      this.wrapWithColor("View my project showcase\n", "#ffffff") +
-      this.wrapWithColor("• skills-visual", "#98fb98") +
-      " " +
-      this.wrapWithColor("Show skills visualization\n", "#ffffff") +
-      this.wrapWithColor("• game", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Play a mini-game\n", "#ffffff") +
-      this.wrapWithColor("• matrix", "#98fb98") +
-      "    " +
-      this.wrapWithColor("Start Matrix digital rain effect\n", "#ffffff") +
-      this.wrapWithColor("• weather", "#98fb98") +
-      "   " +
-      this.wrapWithColor("Check weather for a location\n", "#ffffff") +
-      this.wrapWithColor("• calc", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Calculate mathematical expressions\n", "#ffffff") +
-      this.wrapWithColor("• pdf", "#98fb98") +
-      "       " +
-      this.wrapWithColor("Download resume as PDF\n", "#ffffff") +
-      this.wrapWithColor("• linkedin-cover", "#98fb98") +
-      " " +
-      this.wrapWithColor("Generate LinkedIn cover image\n", "#ffffff");
+      this.wrapWithColor("- projects", "#98fb98") + "    " + this.wrapWithColor("Open project showcase\n", "#ffffff") +
+      this.wrapWithColor("- skills-visual", "#98fb98") + " " + this.wrapWithColor("Show skills visualization\n", "#ffffff") +
+      this.wrapWithColor("- game", "#98fb98") + "        " + this.wrapWithColor("Play Snake\n", "#ffffff") +
+      this.wrapWithColor("- matrix", "#98fb98") + "      " + this.wrapWithColor("Start matrix effect\n", "#ffffff") +
+      this.wrapWithColor("- calc", "#98fb98") + "        " + this.wrapWithColor("Calculator\n", "#ffffff") +
+      this.wrapWithColor("- linkedin-cover", "#98fb98") + " " + this.wrapWithColor("Generate cover image\n\n", "#ffffff");
 
     const shortcuts =
-      "\n" +
-      this.wrapWithColor("Shortcuts:\n", "#666666") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("↑/↓", "#666666") +
-      "         " +
-      this.wrapWithColor("Navigate command history\n", "#444444") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("Tab", "#666666") +
-      "         " +
-      this.wrapWithColor("Auto-complete commands\n", "#444444") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("Ctrl+L", "#666666") +
-      "      " +
-      this.wrapWithColor("Clear the screen\n", "#444444") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("Ctrl+Shift+H", "#666666") +
-      " " +
-      this.wrapWithColor("Split horizontally\n", "#444444") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("Ctrl+Shift+V", "#666666") +
-      " " +
-      this.wrapWithColor("Split vertically", "#444444");
-
-    const help = title + mainCommands + utilityCommands + shortcuts;
+      this.wrapWithColor("Shortcuts:\n", "#00ffff") +
+      this.wrapWithColor("- Up/Down", "#666666") + "    " + this.wrapWithColor("Navigate command history\n", "#444444") +
+      this.wrapWithColor("- Tab", "#666666") + "        " + this.wrapWithColor("Auto-complete commands\n", "#444444") +
+      this.wrapWithColor("- Ctrl+L", "#666666") + "     " + this.wrapWithColor("Clear the screen", "#444444");
 
     const helpDiv = document.createElement("div");
-    helpDiv.innerHTML = help;
+    helpDiv.innerHTML = title + mainCommands + utilityCommands + shortcuts;
     outputElement.appendChild(helpDiv);
     this.scrollToBottom(outputElement.closest(".terminal-content"));
   }
 
   showAbout(outputElement = this.output) {
-    const about = `<span style="color: #ff8c00; font-weight: bold;">✨ About Me</span>
+    const about = `<span style="color: #ff8c00; font-weight: bold;">About Me</span>
 
-${this.wrapWithColor(
-  "┌─────────────────────────────────────────────────────────┐",
-  "#ff8c00"
-)}
-${this.wrapWithColor("│", "#ff8c00")} ${this.wrapWithColor(
-      "Senior software engineer with more than 10 years of",
-      "#ffffff"
-    )}
-${this.wrapWithColor("│", "#ff8c00")} ${this.wrapWithColor(
-      "programming experience.",
-      "#ffffff"
-    )}
-${this.wrapWithColor(
-  "└─────────────────────────────────────────────────────────┘",
-  "#ff8c00"
-)}
+${this.wrapWithColor("Deependra Rathod", "#00ffff")}
+${this.wrapWithColor("Full-Stack Engineer with strong QA Automation and Product Manager positioning.", "#ffffff")}
 
-${this.wrapWithColor("⚡ Experience", "#ff8c00")}
-${this.wrapWithColor(
-  "   Building scalable and efficient software solutions using",
-  "#ffffff"
-)}
-${this.wrapWithColor("   React, JavaScript, and Google Cloud", "#ff8c00")}
+${this.wrapWithColor("Focus", "#ff8c00")}
+- ${this.wrapWithColor("Full-stack delivery with React, Next.js, Node.js, AWS, microservices, Kafka, and Redis", "#ffffff")}
+- ${this.wrapWithColor("QA Automation through TDD, Jest, MSW, API testing, CI/CD, and regression-minded engineering", "#ffffff")}
+- ${this.wrapWithColor("Product Manager thinking through MVP scope, roadmaps, analytics, A/B tests, and stakeholder alignment", "#ffffff")}
 
-${this.wrapWithColor("⚡ Passion", "#ff8c00")}
-${this.wrapWithColor(
-  "   Transforming innovative ideas into high-quality applications",
-  "#ffffff"
-)}
-${this.wrapWithColor(
-  "   with elegant and efficient implementations",
-  "#ffffff"
-)}
-
-${this.wrapWithColor("⚡ Strengths", "#ff8c00")}
-${this.wrapWithColor(
-  "   Strong team player with expertise in designing robust,",
-  "#ffffff"
-)}
-${this.wrapWithColor("   high-performance systems", "#ffffff")}
-
-${this.wrapWithColor(
-  "╭───────────────────────────────────────────────────────╮",
-  "#ff8c00"
-)}
-${this.wrapWithColor("│", "#ff8c00")} ${this.wrapWithColor(
-      "Ready to bring your innovative ideas to life!",
-      "#ffffff"
-    )} ${this.wrapWithColor("│", "#ff8c00")}
-${this.wrapWithColor(
-  "╰───────────────────────────────────────────────────────╯",
-  "#ff8c00"
-)}`;
+${this.wrapWithColor("Core stack", "#ff8c00")}
+${this.wrapWithColor("React, Next.js, Node.js, AWS, Docker, Kafka, Redis, PostgreSQL, MongoDB, Jest, MSW", "#87cefa")}`;
 
     const aboutDiv = document.createElement("div");
     aboutDiv.innerHTML = about;
@@ -778,142 +669,20 @@ ${this.wrapWithColor(
   }
 
   showExperience(outputElement = this.output) {
-    const experience = `<span style="color: #ffff00; font-weight: bold;">💼 Professional Experience</span>
+    const experience = `<span style="color: #ffff00; font-weight: bold;">Professional Experience</span>
 
-<span style="color: #00ffff;">UNICEPTA | Senior Software Engineer</span>
-${this.wrapWithColor(
-  "Jul 2020 - Present | Cologne, Germany | 450+ employees",
-  "#ffffff"
-)}
-${this.wrapWithColor(
-  "Visionary, AI-powered Media & Data Intelligence Solutions",
-  "#98fb98"
-)}
+<span style="color: #00ffff;">STEALTH STARTUP | Full-Stack AI Developer</span>
+${this.wrapWithColor("Nov 2025 - Present | Hyderabad, India (Hybrid)", "#ffffff")}
+- ${this.wrapWithColor("Led a Backend-for-Frontend layer aggregating microservices, cutting API over-fetching by 40%.", "#ffffff")}
+- ${this.wrapWithColor("Implemented OIDC-based SSO authentication for stronger enterprise access control.", "#ffffff")}
+- ${this.wrapWithColor("Containerized distributed systems with Docker and CI/CD quality gates, reducing release cycle time by 50%.", "#ffffff")}
+- ${this.wrapWithColor("Partnered with product leadership on MVP scope, customer value, and release readiness.", "#ffffff")}
 
-• ${this.wrapWithColor("Part of Core team", "#ffa07a")} - ${this.wrapWithColor(
-      "Architect and part of every decision.",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor(
-      "Microservices engineer",
-      "#ffa07a"
-    )} - ${this.wrapWithColor(
-      "Designed and build services for distributed system",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("Pipeline engineer", "#ffa07a")} - ${this.wrapWithColor(
-      "Google cloud engineer for data pipeline",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("Fullstack engineer", "#ffa07a")} - ${this.wrapWithColor(
-      "Wrote and reviewed code for front/back/cloud.",
-      "#ffffff"
-    )}
-
-${this.wrapWithColor("Technologies used:", "#00ffff")} ${this.wrapWithColor(
-      "Typescript, React, NodeJs, Poetry, PyTest, ReactJS, Jest, Cypress, ES6, ElasticSearch, Google Cloud, JIRA, Firebase, Kubernetes, Data Flow",
-      "#87cefa"
-    )}
-
-<span style="color: #00ffff;">RITECH SOLUTIONS | Senior Software Engineer</span>
-${this.wrapWithColor(
-  "Jul 2018 – Jul 2020 | Tirana, Albania | 100-150 employees",
-  "#ffffff"
-)}
-
-• ${this.wrapWithColor("Part of Core team", "#ffa07a")} - ${this.wrapWithColor(
-      "Team that leads company tech decisions",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("Tech interviewer", "#ffa07a")} - ${this.wrapWithColor(
-      "Interview potential candidates.",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("Microsoft project", "#ffa07a")} - ${this.wrapWithColor(
-      "IOT marketing project in every Microsoft store.",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("Fullstack engineer", "#ffa07a")} - ${this.wrapWithColor(
-      "Wrote and reviewed code for big projects.",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor(
-      "AppriseMobile Tech Lead",
-      "#ffa07a"
-    )} - ${this.wrapWithColor(
-      "CRM for Toyota and corporates in USA",
-      "#ffffff"
-    )}
-
-${this.wrapWithColor("Technologies used:", "#00ffff")} ${this.wrapWithColor(
-      "JavaScript, Python, pandas, NodeJs, ReactJS, Chai, Sinon, Mocha, ES6, ElasticSearch, Redis, Nginx, Gulp, JIRA, Docker, Azure, AWS, MongoDB",
-      "#87cefa"
-    )}
-
-<span style="color: #00ffff;">GUTENBERG TECHNOLOGY | Software Engineering</span>
-${this.wrapWithColor(
-  "Feb 2017 – Aug 2018 | Paris, France | 50-100 employees",
-  "#ffffff"
-)}
-
-• ${this.wrapWithColor(
-      "Fullstack developer",
-      "#ffa07a"
-    )} - ${this.wrapWithColor(
-      "Frontend and backend (real-time publisher platform) used by National Geographics, IUBH, Fujitsu",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("MEFIO developer", "#ffa07a")} - ${this.wrapWithColor(
-      "Highly available publisher platform",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor(
-      "Webreader developer",
-      "#ffa07a"
-    )} - ${this.wrapWithColor(
-      "reader platform, e-Learning platform",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("SaaS developer", "#ffa07a")} - ${this.wrapWithColor(
-      "Integrated strategy to migrate from manual sales to SaaS",
-      "#ffffff"
-    )}
-
-${this.wrapWithColor("Technologies used:", "#00ffff")} ${this.wrapWithColor(
-      "Python, ES6, ElasticSearch, Redis, Nginx, npm, Gulp, JIRA, Docker, AWS S3, RethinkDB, ReactJS, NodeJS, AngularJS, JavaScript",
-      "#87cefa"
-    )}
-
-<span style="color: #00ffff;">GROUP OF COMPANIES | Software Engineer</span>
-${this.wrapWithColor(
-  "Mar 2015 – Feb 2017 | Tirana, Albania | 5-30 employees",
-  "#ffffff"
-)}
-
-• ${this.wrapWithColor("Software developer", "#ffa07a")} - ${this.wrapWithColor(
-      "Developed web and native projects",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("Bar management app", "#ffa07a")} - ${this.wrapWithColor(
-      "Developed app for bar/restaurant management.",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor(
-      "Bank system optimisation",
-      "#ffa07a"
-    )} - ${this.wrapWithColor(
-      "Optimised aggregation from 11h to 1h",
-      "#ffffff"
-    )}
-• ${this.wrapWithColor("UKD developer", "#ffa07a")} - ${this.wrapWithColor(
-      "Water supply billing process for Albania, Government project",
-      "#ffffff"
-    )}
-
-${this.wrapWithColor("Technologies used:", "#00ffff")} ${this.wrapWithColor(
-      "Typescript, Python, Gulp, Docker, MongoDB, ReactJS, NodeJs, AngularJS, JavaScript, Java",
-      "#87cefa"
-    )}`;
+<span style="color: #00ffff;">CODINGPANDA | Software Developer Intern</span>
+${this.wrapWithColor("Sept 2025 - Nov 2025 | Bangalore, India (Remote)", "#ffffff")}
+- ${this.wrapWithColor("Built modular Node.js/Express APIs for high-volume workflows, increasing throughput by 25%.", "#ffffff")}
+- ${this.wrapWithColor("Enhanced Redis caching and API batching to reduce latency and server overhead.", "#ffffff")}
+- ${this.wrapWithColor("Collaborated with UI/UX on accessible dashboard components and regression-aware handoffs.", "#ffffff")}`;
 
     const experienceDiv = document.createElement("div");
     experienceDiv.innerHTML = experience;
@@ -922,46 +691,16 @@ ${this.wrapWithColor("Technologies used:", "#00ffff")} ${this.wrapWithColor(
   }
 
   showEducation(outputElement = this.output) {
-    const education = `<span style="color: #ff8c00; font-weight: bold;">🎓 Education</span>
+    const education = `<span style="color: #ff8c00; font-weight: bold;">Education</span>
 
-${this.wrapWithColor(
-  "┌──────────────────────────────────────────────────┐",
-  "#ff8c00"
-)}
-${this.wrapWithColor("│", "#ff8c00")}${this.wrapWithColor(
-      " Bachelor of Computer Science ",
-      "#ffffff"
-    )}${this.wrapWithColor("│", "#ff8c00")}
-${this.wrapWithColor(
-  "└──────────────────────────────────────────────────┘",
-  "#ff8c00"
-)}
+${this.wrapWithColor("Indian Institute of Information Technology, Ranchi", "#00ffff")}
+${this.wrapWithColor("B.Tech in Computer Science and Engineering", "#ffffff")}
+${this.wrapWithColor("2023 - 2027 | CGPA: 9.37 / 10.0", "#ffffff")}
 
-${this.wrapWithColor("🏛️ Institution:", "#ff8c00")} ${this.wrapWithColor(
-      "University of Tirana",
-      "#ffffff"
-    )}
-${this.wrapWithColor("📅 Duration:", "#ff8c00")}    ${this.wrapWithColor(
-      "2013 - 2016",
-      "#ffffff"
-    )}
-${this.wrapWithColor("📍 Location:", "#ff8c00")}    ${this.wrapWithColor(
-      "Tirana, Albania",
-      "#ffffff"
-    )}
-
-${this.wrapWithColor(
-  "╭──────────────────────────────────────────────────╮",
-  "#ff8c00"
-)}
-${this.wrapWithColor("│", "#ff8c00")}${this.wrapWithColor(
-      " Foundation of my software engineering journey ",
-      "#ffffff"
-    )}${this.wrapWithColor("│", "#ff8c00")}
-${this.wrapWithColor(
-  "╰──────────────────────────────────────────────────╯",
-  "#ff8c00"
-)}`;
+${this.wrapWithColor("Achievements & Leadership", "#ff8c00")}
+- ${this.wrapWithColor("Solved 300+ LeetCode problems", "#ffffff")}
+- ${this.wrapWithColor("Finalist at Smart India Hackathon 2024 for FarmLink", "#ffffff")}
+- ${this.wrapWithColor("Startup Coordinator, IIIT Ranchi; directed programs impacting 200+ students", "#ffffff")}`;
 
     const educationDiv = document.createElement("div");
     educationDiv.innerHTML = education;
@@ -970,32 +709,25 @@ ${this.wrapWithColor(
   }
 
   showSkills(outputElement = this.output) {
-    const skills = `<span style="color: #ffff00; font-weight: bold;">🛠️ PROGRAMMING</span>
+    const skills = `<span style="color: #ffff00; font-weight: bold;">Technical Skills</span>
 
-• ${this.wrapWithColor("Typescript", "#ffffff")}
-• ${this.wrapWithColor("Python", "#ffffff")}
-• ${this.wrapWithColor("Javascript", "#ffffff")}
-• ${this.wrapWithColor("Node", "#ffffff")}
-• ${this.wrapWithColor("React", "#ffffff")}
-• ${this.wrapWithColor("Angular", "#ffffff")}
-• ${this.wrapWithColor("Google Cloud", "#ffffff")}
-• ${this.wrapWithColor("AWS", "#ffffff")}
-• ${this.wrapWithColor("Azure", "#ffffff")}
-• ${this.wrapWithColor("Docker", "#ffffff")}
-• ${this.wrapWithColor("Terraform", "#ffffff")}
-• ${this.wrapWithColor("Kubernetes", "#ffffff")}
-• ${this.wrapWithColor("Java", "#ffffff")}
-• ${this.wrapWithColor("Kotlin", "#ffffff")}
-• ${this.wrapWithColor("MongoDB", "#ffffff")}
-• ${this.wrapWithColor("RethinkDB", "#ffffff")}
-• ${this.wrapWithColor("Jest", "#ffffff")}
-• ${this.wrapWithColor("ElasticSearch", "#ffffff")}
-• ${this.wrapWithColor("GraphQL", "#ffffff")}
-• ${this.wrapWithColor("Express", "#ffffff")}
-• ${this.wrapWithColor("Redis", "#ffffff")}
-• ${this.wrapWithColor("SQL", "#ffffff")}
-• ${this.wrapWithColor("HTML", "#ffffff")}
-• ${this.wrapWithColor("CSS", "#ffffff")}`;
+${this.wrapWithColor("Languages", "#ff8c00")}
+- TypeScript, JavaScript, Python, C++, SQL, HTML/CSS
+
+${this.wrapWithColor("Frameworks", "#ff8c00")}
+- React.js, Next.js, Node.js, Express, Redux, Tailwind, WebSockets
+
+${this.wrapWithColor("Cloud & DevOps", "#ff8c00")}
+- AWS EC2, S3, CloudFront, Docker, Kafka, Redis, CI/CD Pipelines, Nx Monorepo
+
+${this.wrapWithColor("QA Automation", "#ff8c00")}
+- Jest, MSW, TDD, API testing, CI/CD, regression thinking, quality gates
+
+${this.wrapWithColor("Product Management", "#ff8c00")}
+- Product Manager positioning, MVP scope, roadmapping, analytics, A/B testing, Agile/Scrum, stakeholder management
+
+${this.wrapWithColor("Systems & Data", "#ff8c00")}
+- System Design, REST APIs, PostgreSQL, MongoDB, Stripe Connect, Kafka, Redis`;
 
     const skillsDiv = document.createElement("div");
     skillsDiv.innerHTML = skills;
@@ -1004,53 +736,14 @@ ${this.wrapWithColor(
   }
 
   showContact(outputElement = this.output) {
-    const contact = `<span style="color: #ff8c00; font-weight: bold;">📫 Contact Information</span>
+    const contact = `<span style="color: #ff8c00; font-weight: bold;">Contact Information</span>
 
-${this.wrapWithColor("┌────────────────────────────────────────┐", "#ff8c00")}
-${this.wrapWithColor("│", "#ff8c00")} ${this.wrapWithColor(
-      "Let's connect and create something great!",
-      "#ffffff"
-    )} ${this.wrapWithColor("│", "#ff8c00")}
-${this.wrapWithColor("└────────────────────────────────────────┘", "#ff8c00")}
-
-${this.wrapWithColor("✉", "#ff8c00")}  ${this.wrapWithColor(
-      "Email:",
-      "#ff8c00"
-    )} ${this.wrapWithColor(
-      '<a href="mailto:marjoballabani@gmail.com" style="color: #ffffff; text-decoration: none;">marjoballabani@gmail.com</a>',
-      "#ffffff"
-    )}
-
-${this.wrapWithColor("🌐", "#ff8c00")}  ${this.wrapWithColor(
-      "Website:",
-      "#ff8c00"
-    )} ${this.wrapWithColor(
-      '<a href="https://marjoballabani.me" target="_blank" style="color: #ffffff; text-decoration: none;">marjoballabani.me</a>',
-      "#ffffff"
-    )}
-
-${this.wrapWithColor("⚡", "#ff8c00")}  ${this.wrapWithColor(
-      "Github:",
-      "#ff8c00"
-    )} ${this.wrapWithColor(
-      '<a href="https://github.com/marjoballabani" target="_blank" style="color: #ffffff; text-decoration: none;">github.com/marjoballabani</a>',
-      "#ffffff"
-    )}
-
-${this.wrapWithColor("💼", "#ff8c00")}  ${this.wrapWithColor(
-      "LinkedIn:",
-      "#ff8c00"
-    )} ${this.wrapWithColor(
-      '<a href="https://linkedin.com/in/marjo-ballabani" target="_blank" style="color: #ffffff; text-decoration: none;">linkedin.com/in/marjo-ballabani</a>',
-      "#ffffff"
-    )}
-
-${this.wrapWithColor("╭────────────────────────────────────────╮", "#ff8c00")}
-${this.wrapWithColor("│", "#ff8c00")} ${this.wrapWithColor(
-      "Feel free to reach out for opportunities!",
-      "#ffffff"
-    )} ${this.wrapWithColor("│", "#ff8c00")}
-${this.wrapWithColor("╰────────────────────────────────────────╯", "#ff8c00")}`;
+${this.wrapWithColor("Email:", "#ff8c00")} ${this.wrapWithColor('<a href="mailto:deependrarathod898@gmail.com" style="color: #ffffff; text-decoration: none;">deependrarathod898@gmail.com</a>', "#ffffff")}
+${this.wrapWithColor("Phone:", "#ff8c00")} ${this.wrapWithColor('<a href="tel:+918005528688" style="color: #ffffff; text-decoration: none;">+91 800 552 8688</a>', "#ffffff")}
+${this.wrapWithColor("GitHub:", "#ff8c00")} ${this.wrapWithColor('<a href="https://github.com/Deependra-Codes" target="_blank" rel="noopener noreferrer" style="color: #ffffff; text-decoration: none;">github.com/Deependra-Codes</a>', "#ffffff")}
+${this.wrapWithColor("LinkedIn:", "#ff8c00")} ${this.wrapWithColor('<a href="https://in.linkedin.com/in/deependra-rathod-23a6ba381" target="_blank" rel="noopener noreferrer" style="color: #ffffff; text-decoration: none;">in.linkedin.com/in/deependra-rathod-23a6ba381</a>', "#ffffff")}
+${this.wrapWithColor("Location:", "#ff8c00")} ${this.wrapWithColor("Ranchi, India", "#ffffff")}
+`;
 
     const contactDiv = document.createElement("div");
     contactDiv.innerHTML = contact;
@@ -1094,61 +787,94 @@ ${this.wrapWithColor("╰──────────────────�
   loadProjects() {
     this.projects = [
       {
-        title: "Interactive Terminal Resume",
-        description: "A unique terminal-based resume with interactive features",
-        image: "path/to/project-image.jpg",
-        technologies: ["JavaScript", "HTML", "CSS"],
-        demo: "https://demo.example.com",
-        repo: "https://github.com/example/repo",
+        title: "GitGraph Lab",
+        description: "High-performance Rust engine for Git history indexing and graph queries.",
+        initial: "GG",
+        technologies: ["Rust", "LMDB", "CSR Graphs", "Git", "Tauri", "Performance Engineering"],
+        impact: "Benchmarked on synthetic histories up to one million commits with explicit ingestion, query-latency, memory, and correctness gates.",
       },
-      // Add more projects
+      {
+        title: "RepoBrain OS",
+        description: "Deterministic repository cognition and context system for coding agents.",
+        initial: "RB",
+        technologies: ["Rust", "Python", "TypeScript", "MCP", "JSON Schema", "Semantic Verification"],
+        impact: "Builds evidence-backed repository facts, snapshot-aware retrieval, impact analysis, and honest verification-readiness signals.",
+      },
+      {
+        title: "Anchored Unit-Threshold Graph Research",
+        description: "Two manuscripts in progress connecting delivery batching with graph-class theory.",
+        initial: "AUT",
+        technologies: ["Graph Theory", "Operations Research", "LaTeX", "Proof Verification"],
+        impact: "Research includes an anchored unit-threshold graph characterization and linear-time optimization on a structured shell case.",
+      },
+      {
+        title: "Collaborative Docs Workspace",
+        description: "Real-time document editor with rich collaboration and AI-assisted editing.",
+        initial: "DOC",
+        technologies: ["Next.js", "Convex", "Liveblocks", "TipTap", "Yjs", "RBAC"],
+        impact: "Supports live cursors, comments, organization workspaces, version snapshots, permissions, and streamed AI writing actions.",
+      },
+      {
+        title: "Real-Time Communication Platform",
+        description: "Event-driven communication monorepo with resilient gateway and worker services.",
+        initial: "RTC",
+        technologies: ["TypeScript", "Fastify", "WebSockets", "PostgreSQL", "Redis", "Kafka"],
+        impact: "Implements transactional outbox delivery, OIDC authentication, rate limits, distributed tracing, moderation, and asynchronous workers.",
+      },
     ];
   }
 
   loadSkills() {
     this.skills = {
       programming: {
-        JavaScript: 95,
-        Python: 90,
-        "React.js": 85,
-        "Node.js": 88,
+        TypeScript: 92,
+        JavaScript: 90,
+        Python: 85,
+        "C++": 82,
       },
-      cloud: {
-        "Google Cloud": 92,
-        AWS: 85,
-        Azure: 80,
+      frameworks: {
+        "React.js": 92,
+        "Next.js": 88,
+        "Node.js": 90,
+        Express: 88,
       },
       databases: {
-        MongoDB: 90,
-        PostgreSQL: 85,
-        Redis: 82,
+        PostgreSQL: 88,
+        MongoDB: 88,
+        Redis: 86,
       },
-    };
-  }
-
-  setupFileSystem() {
-    this.fileSystem = {
-      resume: {
-        type: "directory",
-        contents: {
-          "about.txt": { type: "file", content: "About me..." },
-          "skills.md": { type: "file", content: "# Skills..." },
-          projects: {
-            type: "directory",
-            contents: {
-              "project1.md": { type: "file", content: "Project 1 details..." },
-            },
-          },
-        },
+      systems: {
+        AWS: 86,
+        Docker: 84,
+        Kafka: 82,
+        Microservices: 88,
+      },
+      qaAutomation: {
+        Jest: 84,
+        MSW: 82,
+        TDD: 82,
+        "API Testing": 84,
+      },
+      productManagement: {
+        "MVP Scope": 84,
+        Roadmapping: 82,
+        Analytics: 80,
+        "Stakeholder Alignment": 84,
       },
     };
   }
 
   // Theme handling
   handleThemeChange(theme) {
-    this.terminal.className = `terminal theme-${theme}`;
-    localStorage.setItem("theme", theme);
-    this.currentTheme = theme;
+    const nextTheme = this.availableThemes.includes(theme) ? theme : "default";
+    this.terminal.className = `terminal theme-${nextTheme}`;
+    localStorage.setItem(this.themeStorageKey, nextTheme);
+    this.currentTheme = nextTheme;
+    document.querySelectorAll(".theme-option").forEach((option) => {
+      const isActive = option.dataset.theme === nextTheme;
+      option.classList.toggle("active", isActive);
+      option.setAttribute("aria-pressed", String(isActive));
+    });
     this.closeModal(this.themeModal);
   }
 
@@ -1168,12 +894,11 @@ ${this.wrapWithColor("╰──────────────────�
       .map(
         (project) => `
       <div class="project-card">
-        <img src="${project.image}" alt="${
-          project.title
-        }" class="project-image">
+        <div class="project-image project-initial-card">${project.initial}</div>
         <div class="project-details">
           <h3 class="project-title">${project.title}</h3>
           <p class="project-description">${project.description}</p>
+          <p class="project-description">${project.impact}</p>
           <div class="project-tech">
             ${project.technologies
               .map(
@@ -1182,14 +907,6 @@ ${this.wrapWithColor("╰──────────────────�
             `
               )
               .join("")}
-          </div>
-          <div class="project-links">
-            <a href="${project.demo}" class="project-link" target="_blank">
-              <i class="fas fa-external-link-alt"></i> Demo
-            </a>
-            <a href="${project.repo}" class="project-link" target="_blank">
-              <i class="fab fa-github"></i> Repository
-            </a>
           </div>
         </div>
       </div>
@@ -1231,35 +948,6 @@ ${this.wrapWithColor("╰──────────────────�
     this.showModal(this.skillsModal);
   }
 
-  // File explorer
-  navigateFileSystem(path) {
-    const parts = path.split("/").filter(Boolean);
-    let current = this.fileSystem;
-    for (const part of parts) {
-      if (current.type !== "directory" || !current.contents[part]) {
-        return null;
-      }
-      current = current.contents[part];
-    }
-    return current;
-  }
-
-  // PDF Generation
-  async generatePDF() {
-    const outputElement = this.terminals[this.activeTerminal].input
-      .closest(".terminal-content")
-      .querySelector("[id^='output']");
-    this.printToOutput(outputElement, "Generating PDF resume...", "info");
-    // Placeholder for actual PDF generation
-    setTimeout(() => {
-      this.printToOutput(
-        outputElement,
-        "PDF generation is not yet implemented.",
-        "error"
-      );
-    }, 1000);
-  }
-
   // Mini-game - Snake game with p5.js
   initGame() {
     // Clean up any existing game
@@ -1297,12 +985,6 @@ ${this.wrapWithColor("╰──────────────────�
     if (!this.gameActive) return;
 
     this.gameActive = false;
-
-    // Remove event listener if it exists
-    if (this.gameHandler) {
-      document.removeEventListener("keydown", this.gameHandler);
-      this.gameHandler = null;
-    }
 
     // Remove p5.js instance if it exists
     if (this.p5Instance) {
@@ -1659,76 +1341,6 @@ ${this.wrapWithColor("╰──────────────────�
     }
   }
 
-  // Weather command
-  async showWeather(location, outputElement) {
-    if (!location) {
-      this.printToOutput(
-        outputElement,
-        "Please specify a location. Usage: weather [city name]",
-        "error"
-      );
-      return;
-    }
-
-    this.printToOutput(
-      outputElement,
-      `Fetching weather for ${location}...`,
-      "info"
-    );
-
-    try {
-      // Using OpenWeatherMap API
-      const apiKey = "4331a27995f4c5b5e8d1eab1ed3d88b4"; // Free API key with limited usage
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
-        location
-      )}&appid=${apiKey}&units=metric`;
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} - ${response.statusText}`);
-      }
-
-      const data = await response.json();
-
-      // Format weather data
-      const weatherHTML = `<div class="weather-container">
-        <div class="weather-header">
-          <span style="color: #ffff00; font-weight: bold;">🌤️ Weather for ${
-            data.name
-          }, ${data.sys.country}</span>
-        </div>
-        <div class="weather-body">
-          <div class="weather-main">
-            <span style="font-size: 2rem; color: #ffffff;">${Math.round(
-              data.main.temp
-            )}°C</span>
-            <span style="color: #cccccc;">${data.weather[0].main}</span>
-          </div>
-          <div class="weather-details">
-            <div><span style="color: #87cefa;">Feels like:</span> ${Math.round(
-              data.main.feels_like
-            )}°C</div>
-            <div><span style="color: #87cefa;">Humidity:</span> ${
-              data.main.humidity
-            }%</div>
-            <div><span style="color: #87cefa;">Wind:</span> ${Math.round(
-              data.wind.speed * 3.6
-            )} km/h</div>
-          </div>
-        </div>
-      </div>`;
-
-      this.printToOutput(outputElement, weatherHTML, "");
-    } catch (error) {
-      this.printToOutput(
-        outputElement,
-        `Failed to fetch weather data: ${error.message}`,
-        "error"
-      );
-    }
-  }
-
   // Calculator command
   calculate(expression, outputElement) {
     if (!expression) {
@@ -1758,18 +1370,20 @@ ${this.wrapWithColor("╰──────────────────�
           ? result.toFixed(4).replace(/\.?0+$/, "")
           : result.toString();
 
-      const calculationHTML = `<div class="calculation">
-        <div class="calculation-expression">${this.wrapWithColor(
-          expression,
-          "#87cefa"
-        )}</div>
-        <div class="calculation-result">${this.wrapWithColor(
-          "= " + formattedResult,
-          "#98fb98"
-        )}</div>
-      </div>`;
+      const calculation = document.createElement("div");
+      calculation.className = "calculation";
 
-      this.printToOutput(outputElement, calculationHTML, "");
+      const calculationExpression = document.createElement("div");
+      calculationExpression.className = "calculation-expression";
+      calculationExpression.textContent = expression;
+
+      const calculationResult = document.createElement("div");
+      calculationResult.className = "calculation-result";
+      calculationResult.textContent = `= ${formattedResult}`;
+
+      calculation.append(calculationExpression, calculationResult);
+      outputElement.appendChild(calculation);
+      this.scrollToBottom(outputElement.closest(".terminal-content"));
     } catch (error) {
       this.printToOutput(
         outputElement,
@@ -1838,7 +1452,7 @@ ${this.wrapWithColor("╰──────────────────�
 
     // Add terminal title
     const terminalTitle = document.createElement("div");
-    terminalTitle.textContent = "marjo@ballabani: ~/interactive-resume";
+    terminalTitle.textContent = "deependra@rathod: ~/interactive-resume";
     terminalTitle.style.color = "#f8f8f2";
     terminalTitle.style.fontSize = "12px";
     terminalTitle.style.fontFamily = "'Fira Code', monospace";
@@ -1867,12 +1481,7 @@ ${this.wrapWithColor("╰──────────────────�
     asciiArt.style.fontSize = "10px";
     asciiArt.style.fontFamily = "'Fira Code', monospace";
     asciiArt.style.lineHeight = "1";
-    asciiArt.innerHTML = `███╗   ███╗ █████╗ ██████╗ ██╗ ██████╗
-████╗ ████║██╔══██╗██╔══██╗██║██╔═══██╗
-██╔████╔██║███████║██████╔╝██║██║   ██║
-██║╚██╔╝██║██╔══██║██╔══██╗██║██║   ██║
-██║ ╚═╝ ██║██║  ██║██║  ██║██║╚██████╔╝
-╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝ `;
+    asciiArt.innerHTML = `DEEPENDRA RATHOD`;
     terminalContent.appendChild(asciiArt);
 
     // Add divider
@@ -1895,7 +1504,7 @@ ${this.wrapWithColor("╰──────────────────�
 
     // Add role
     const role = document.createElement("div");
-    role.textContent = "Software Engineer • Cloud Architect • Tech Lead";
+    role.textContent = "Full-Stack Engineer | QA Automation | Product Manager";
     role.style.color = "#666666";
     role.style.fontSize = "10px";
     role.style.fontFamily = "'Fira Code', monospace";
@@ -1918,7 +1527,7 @@ ${this.wrapWithColor("╰──────────────────�
     promptContainer.style.marginTop = "10px";
 
     const prompt = document.createElement("span");
-    prompt.textContent = "➜";
+    prompt.textContent = ">";
     prompt.style.color = "#87af87";
     prompt.style.marginRight = "8px";
     prompt.style.fontSize = "14px";
@@ -1939,7 +1548,7 @@ ${this.wrapWithColor("╰──────────────────�
 
     // Create a mini help menu
     const helpTitle = document.createElement("div");
-    helpTitle.textContent = "🚀 Available Commands";
+    helpTitle.textContent = "Available Commands";
     helpTitle.style.color = "#ffff00";
     helpTitle.style.fontSize = "12px";
     helpTitle.style.fontWeight = "bold";
@@ -1968,7 +1577,7 @@ ${this.wrapWithColor("╰──────────────────�
       cmdLine.style.marginBottom = "4px";
 
       const cmdName = document.createElement("span");
-      cmdName.textContent = "• " + item.cmd;
+      cmdName.textContent = "- " + item.cmd;
       cmdName.style.color = "#98fb98";
       cmdName.style.width = "80px";
       cmdLine.appendChild(cmdName);
@@ -2003,7 +1612,7 @@ ${this.wrapWithColor("╰──────────────────�
       cmdLine.style.marginBottom = "4px";
 
       const cmdName = document.createElement("span");
-      cmdName.textContent = "• " + item.cmd;
+      cmdName.textContent = "- " + item.cmd;
       cmdName.style.color = "#98fb98";
       cmdName.style.width = "80px";
       cmdLine.appendChild(cmdName);
@@ -2027,7 +1636,7 @@ ${this.wrapWithColor("╰──────────────────�
     urlContainer.style.textAlign = "center";
 
     const url = document.createElement("div");
-    url.textContent = "marjoballabani.me";
+    url.textContent = "deependrarathod898@gmail.com";
     url.style.color = "#87cefa";
     url.style.fontSize = "12px";
     url.style.fontFamily = "'Fira Code', monospace";
