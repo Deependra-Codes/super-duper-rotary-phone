@@ -527,8 +527,8 @@ class TerminalResume {
       this.wrapWithColor(asciiArt + "\n", "#d4843e") +
       this.wrapWithColor(divider + "\n", "#555555") +
       this.wrapWithColor("              Interactive Terminal Resume\n", "#888888") +
-      this.wrapWithColor("       Full-Stack & Systems Engineer\n", "#666666") +
-      this.wrapWithColor(" TypeScript | Rust | Distributed Systems | Quality\n", "#666666") +
+      this.wrapWithColor("          Systems-Focused Software Engineer\n", "#666666") +
+      this.wrapWithColor(" Rust | TypeScript | Performance | Verification\n", "#666666") +
       this.wrapWithColor(divider + "\n\n", "#555555") +
       this.wrapWithColor("Type ", "#666666") +
       this.wrapWithColor("'help'", "#87af87") +
@@ -581,15 +581,15 @@ class TerminalResume {
     const about = `<span style="color: #ff8c00; font-weight: bold;">About Me</span>
 
 ${this.wrapWithColor("Deependra Rathod", "#00ffff")}
-${this.wrapWithColor("Full-Stack and Systems Engineer building reliable products, real-time services, and developer tools.", "#ffffff")}
+${this.wrapWithColor("Systems-focused software engineer building performance-engineered developer infrastructure, repository intelligence, and reliable real-time products.", "#ffffff")}
 
-${this.wrapWithColor("Focus", "#ff8c00")}
-- ${this.wrapWithColor("Product engineering with TypeScript, React, Next.js, Node.js, Fastify, AWS, Kafka, and Redis", "#ffffff")}
-- ${this.wrapWithColor("Systems work in Rust, graph indexing, repository intelligence, MCP, and performance engineering", "#ffffff")}
-- ${this.wrapWithColor("Quality engineering through Vitest, Jest, Playwright, MSW, API testing, CI/CD, and performance gates", "#ffffff")}
+${this.wrapWithColor("Evidence hierarchy", "#ff8c00")}
+- ${this.wrapWithColor("GitGraph Lab: public Rust flagship for Git indexing, graph queries, CI, and benchmark gates", "#ffffff")}
+- ${this.wrapWithColor("RepoBrain OS: deepest private system for deterministic repository cognition, evidence receipts, and semantic verification", "#ffffff")}
+- ${this.wrapWithColor("Private work: event-driven TypeScript systems with real-time workflows, resilience controls, and automated verification", "#ffffff")}
 
 ${this.wrapWithColor("Core stack", "#ff8c00")}
-${this.wrapWithColor("TypeScript, Rust, React, Next.js, Node.js, Fastify, AWS, Docker, Kafka, Redis, PostgreSQL, MCP", "#87cefa")}`;
+${this.wrapWithColor("Rust, TypeScript, LMDB, Tree-sitter, MCP, Fastify, PostgreSQL, Redis, Kafka, AWS, CI/CD", "#87cefa")}`;
 
     const aboutDiv = document.createElement("div");
     aboutDiv.innerHTML = about;
@@ -713,20 +713,20 @@ ${this.wrapWithColor("Achievements & Leadership", "#ff8c00")}
 ${this.wrapWithColor("Languages", "#ff8c00")}
 - TypeScript, JavaScript, Rust, Python, C++, SQL, HTML/CSS
 
-${this.wrapWithColor("Product Engineering", "#ff8c00")}
-- React.js, Next.js, Node.js, Express, Fastify, Redux/Zustand, Tailwind, TipTap/Yjs
+${this.wrapWithColor("Performance & Developer Infrastructure", "#ff8c00")}
+- Git graph indexing, LMDB, compact graph snapshots, incremental ingestion, benchmarking, hardware-aware tuning
 
-${this.wrapWithColor("Cloud & DevOps", "#ff8c00")}
-- AWS, S3/SQS, Docker, CI/CD, Turborepo, OpenTelemetry, observability
+${this.wrapWithColor("Repository Intelligence & Verification", "#ff8c00")}
+- MCP, Tree-sitter, deterministic extraction, snapshot-backed retrieval, evidence receipts, semantic verification
 
-${this.wrapWithColor("Testing & Quality", "#ff8c00")}
-- Vitest, Jest, Playwright, Supertest, MSW, TDD, API testing, performance gates
+${this.wrapWithColor("Real-Time & Distributed Systems", "#ff8c00")}
+- Fastify, WebSockets, Kafka, Redis, PostgreSQL, transactional outbox, queues, resilience controls
 
-${this.wrapWithColor("Systems & AI", "#ff8c00")}
-- Distributed systems, WebSockets, Kafka, BullMQ/SQS, transactional outbox, MCP, Tree-sitter, graph indexing
+${this.wrapWithColor("Product Delivery & Quality", "#ff8c00")}
+- React, Next.js, Node.js, AWS, Docker, CI/CD, Vitest, Jest, Playwright, API testing, performance gates
 
-${this.wrapWithColor("Data & Research", "#ff8c00")}
-- PostgreSQL, Redis, MongoDB, LMDB, SQLite, Prisma, Convex, benchmarking, graph theory, LaTeX`;
+${this.wrapWithColor("Research", "#ff8c00")}
+- Graph theory, algorithms, operations research, proof verification, technical writing, LaTeX`;
 
     const skillsDiv = document.createElement("div");
     skillsDiv.innerHTML = skills;
@@ -787,31 +787,31 @@ ${this.wrapWithColor("Location:", "#ff8c00")} ${this.wrapWithColor("Ranchi, Indi
     this.projects = [
       {
         title: "GitGraph Lab",
-        description: "High-performance Rust engine for Git history indexing and graph queries.",
+        description: "Public performance-engineered Rust system for Git history indexing and graph queries.",
         initial: "GG",
         technologies: ["Rust", "LMDB", "CSR Graphs", "Git", "Tauri", "Performance Engineering"],
-        impact: "Benchmarked on synthetic histories up to one million commits with explicit ingestion, query-latency, memory, and correctness gates.",
+        impact: "Combines LMDB-backed storage, compact graph snapshots, incremental ingestion, CI, and explicit benchmark and correctness gates.",
       },
       {
         title: "RepoBrain OS",
-        description: "Deterministic repository cognition and context system for coding agents.",
+        description: "Deepest private system: deterministic repository cognition and context infrastructure for coding agents.",
         initial: "RB",
-        technologies: ["Rust", "Python", "TypeScript", "MCP", "JSON Schema", "Semantic Verification"],
-        impact: "Builds evidence-backed repository facts, snapshot-aware retrieval, impact analysis, and honest verification-readiness signals.",
+        technologies: ["Rust", "TypeScript", "Python", "MCP", "Tree-sitter", "Semantic Verification"],
+        impact: "Builds evidence-backed repository facts, snapshot-aware retrieval, impact analysis, machine-checked contracts, and honest verification-readiness signals.",
       },
       {
         title: "Anchored Unit-Threshold Graph Research",
-        description: "Two manuscripts in progress connecting delivery batching with graph-class theory.",
+        description: "Research edge: two manuscripts in progress connecting delivery batching with graph-class theory.",
         initial: "AUT",
         technologies: ["Graph Theory", "Operations Research", "LaTeX", "Proof Verification"],
-        impact: "Research includes an anchored unit-threshold graph characterization and linear-time optimization on a structured shell case.",
+        impact: "Includes an anchored unit-threshold graph characterization and a linear-time optimization direction on a structured shell case.",
       },
       {
-        title: "Collaborative Docs Workspace",
-        description: "Real-time document editor with rich collaboration and AI-assisted editing.",
-        initial: "DOC",
-        technologies: ["Next.js", "Convex", "Liveblocks", "TipTap", "Yjs", "RBAC"],
-        impact: "Supports live cursors, comments, organization workspaces, version snapshots, permissions, and streamed AI writing actions.",
+        title: "Communication Platform",
+        description: "Private Discord-style event-driven communication system built for reliable real-time workflows.",
+        initial: "RTC",
+        technologies: ["TypeScript", "Fastify", "WebSockets", "PostgreSQL", "Redis", "Kafka"],
+        impact: "Uses a WebSocket gateway, Kafka-compatible workers, transactional outbox, and explicit resilience controls while protecting private implementation details.",
       },
     ];
   }
@@ -842,16 +842,16 @@ ${this.wrapWithColor("Location:", "#ff8c00")} ${this.wrapWithColor("Ranchi, Indi
         Kafka: 84,
         Docker: 84,
       },
-      qaAutomation: {
+      verification: {
         Vitest: 86,
-        Jest: 84,
-        Playwright: 82,
+        "Semantic Verification": 84,
+        "Performance Gates": 86,
         "API Testing": 86,
       },
-      productResearch: {
-        "MVP Scope": 84,
+      performanceResearch: {
+        "Graph Indexing": 86,
         Benchmarking: 86,
-        ADRs: 84,
+        "Graph Theory": 82,
         "Technical Writing": 86,
       },
     };
@@ -1497,7 +1497,7 @@ ${this.wrapWithColor("Location:", "#ff8c00")} ${this.wrapWithColor("Ranchi, Indi
 
     // Add role
     const role = document.createElement("div");
-    role.textContent = "Full-Stack & Systems Engineer | Quality-Focused Product Engineering";
+    role.textContent = "Systems Engineer | Performance, Repository Intelligence & Reliable Products";
     role.style.color = "#666666";
     role.style.fontSize = "10px";
     role.style.fontFamily = "'Fira Code', monospace";

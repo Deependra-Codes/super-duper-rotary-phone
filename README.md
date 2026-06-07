@@ -1,16 +1,16 @@
 # Deependra Rathod Portfolio
 
-A neo-brutalist personal portfolio built with vanilla HTML, CSS, and JavaScript. The content positions Deependra Rathod as a Full-Stack and Systems Engineer with strong quality-engineering discipline.
+A neo-brutalist personal portfolio built with vanilla HTML, CSS, and JavaScript. The content positions Deependra Rathod as a systems-focused software engineer working across performance engineering, repository intelligence, and reliable real-time products.
 
 ## Highlights
 
 - Main portfolio at `index.html`
 - Interactive terminal resume at `terminal.html`
 - CV-based sections for summary, experience, skills, projects, education, achievements, and contact
-- Role positioning: Full-Stack & Systems Engineer | Quality-Focused Product Engineering
-- Evidence-backed skills span TypeScript, React/Next.js, Node.js/Fastify, Rust, distributed systems, repository intelligence, QA automation, and research
+- Role positioning: Systems Engineer | Performance, Repository Intelligence & Reliable Products
+- Evidence-backed skills span Rust, TypeScript, graph indexing, repository intelligence, distributed systems, performance engineering, verification, and research
 - Stealth internship work is described only through generalized capabilities and is not presented as personal or public project work
-- Current personal work includes GitGraph Lab, RepoBrain OS, graph-theory manuscripts in progress, and a collaborative document workspace
+- Featured work includes the public GitGraph Lab flagship, private RepoBrain OS, graph-theory manuscripts in progress, and a private communication platform
 - GitHub: `https://github.com/Deependra-Codes`
 - LinkedIn: `https://in.linkedin.com/in/deependra-rathod-23a6ba381`
 - No frameworks, no build step, no dependencies

@@ -3700,7 +3700,7 @@ body[data-theme="dark"] .language-item:hover {
 }
 
 .project-gitgraph::after {
-  content: '01 / graph engine';
+  content: '01 / public flagship';
 }
 
 .project-repobrain {
@@ -3708,7 +3708,7 @@ body[data-theme="dark"] .language-item:hover {
 }
 
 .project-repobrain::after {
-  content: '02 / agent context';
+  content: '02 / deepest system';
 }
 
 .project-research {
@@ -3716,7 +3716,7 @@ body[data-theme="dark"] .language-item:hover {
 }
 
 .project-research::after {
-  content: '03 / proofs';
+  content: '03 / research edge';
 }
 
 .project-communication {
@@ -3724,7 +3724,7 @@ body[data-theme="dark"] .language-item:hover {
 }
 
 .project-communication::after {
-  content: '04 / real-time systems';
+  content: '04 / private systems';
 }
 
 .creator-item:last-child:nth-child(odd) {
