@@ -394,10 +394,6 @@ body[data-theme="dark"] .hero {
   background: transparent;
 }
 
-body[data-theme="dark"] .page-gap {
-  background: #0a0a0a;
-}
-
 body[data-theme="dark"] .paper-tear svg path[fill="#d0d0d0"] {
   fill: #0a0a0a;
 }
@@ -979,30 +975,26 @@ body[data-theme="dark"] .job-desc i {
 }
 
 .paper-tear-bottom {
-  margin-top: -1px;
+  margin-top: -30px;
   margin-bottom: -1px;
-  transition: margin-top 0.1s ease-out;
   position: relative;
   z-index: 3;
-  perspective: 1000px;
 }
 
 .tear-tape-sticker {
-  position: fixed;
-  top: var(--tape-position, 0);
-  right: 10%;
+  position: absolute;
+  right: 3%;
   width: 120px;
   height: 45px;
   background: rgba(255, 217, 61, 0.7);
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   transform-origin: left center;
-  transform: rotate(-8deg) translateY(-40px) translateZ(30px) rotateX(35deg);
-  opacity: 0;
+  transform: rotate(-8deg) translateY(-55px);
+  opacity: 1;
   z-index: 50;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   pointer-events: none;
-  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
 }
 
 .tear-tape-sticker::before {
@@ -1035,19 +1027,6 @@ body[data-theme="dark"] .job-desc i {
   display: block;
   width: 100%;
   height: 30px;
-}
-
-.paper-tear svg path[fill="#d0d0d0"],
-.paper-tear svg path[fill="#ffffff"] {
-  transition: opacity 0.1s ease-out;
-}
-
-.page-gap {
-  width: 100%;
-  height: 300px;
-  background: #d0d0d0;
-  position: relative;
-  transition: height 0.1s ease-out;
 }
 
 .hero-right {
@@ -1536,7 +1515,6 @@ body[data-theme="dark"] .stat-number {
   }
 
   .paper-tear-top,
-  .page-gap,
   .tear-tape-sticker {
     display: none;
   }
